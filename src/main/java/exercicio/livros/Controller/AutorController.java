@@ -1,24 +1,43 @@
 package exercicio.livros.Controller;
 
-import exercicio.livros.Service.AutorServ;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import exercicio.livros.Model.AutorModel;
+import exercicio.livros.Service.AutorService;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("autor")
-public class Autor {
+public class AutorController {
 
-    private AutorServ autorServ;
+    private AutorService autorService;
 
-    public Autor(AutorServ autorServ) {
-        this.autorServ = autorServ;
+    public AutorController(AutorService autorService) {
+        this.autorService = autorService;
     }
 
     @GetMapping("/listar")
-    public List<exercicio.livros.Model.Autor> listarAutor() {
-        return autorServ.listarLivros();
+    public List<AutorModel> listarAutor() {
+        return autorService.listarLivros();
+    }
+
+    @GetMapping("/listar/{id}")
+    public AutorModel listarPorId(@PathVariable Long id) {
+        return autorService.listarPorId(id);
+    }
+
+    @PostMapping
+    public AutorModel criarAutor(@RequestBody AutorModel novo) {
+        return autorService.criarAutor(novo);
+    }
+
+    @PutMapping("/{id}")
+    public AutorModel atualizarAutor(@PathVariable Long id, @RequestBody AutorModel novo) {
+        return autorService.atualizarAutor(id, novo);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deletarAutor(@PathVariable Long id) {
+        autorService.deletarAutor(id);
     }
 }

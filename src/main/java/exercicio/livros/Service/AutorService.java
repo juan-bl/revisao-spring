@@ -33,14 +33,12 @@ public class AutorService {
     }
 
     //U
-    public String atualizarAutor(AutorModel autorModelAtualizado, Long id) {
+    public AutorModel atualizarAutor(Long id, AutorModel autorModelAtualizado) {
         if (autorRepository.existsById(id)) {
             autorModelAtualizado.setId(id);
-            autorRepository.save(autorModelAtualizado);
-            return "Autor atualizado com sucesso!";
-        } else {
-            return "Autor não encontrado.";
+            return autorRepository.save(autorModelAtualizado);
         }
+        return null;
     }
 
     //D
