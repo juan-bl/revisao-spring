@@ -12,12 +12,12 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Autor {
+public class AutorModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
     @OneToMany(mappedBy = "autor")
-    private List<Livro> livro;
+    private List<LivroModel> livro;
 }

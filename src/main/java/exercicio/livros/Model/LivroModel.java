@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Livro {
+public class LivroModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,5 +20,5 @@ public class Livro {
     private int paginas;
     @ManyToOne
     @JoinColumn(name = "autor_id")
-    private Autor autor;
+    private AutorModel autor;
 }
