@@ -18,6 +18,6 @@ public class autor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
-    @OneToMany(mappedBy = "autores")
+    @OneToMany(mappedBy = "autor")
     private List<Livro> livro;
 }
