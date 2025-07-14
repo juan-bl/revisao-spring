@@ -1,5 +1,6 @@
 package exercicio.livros.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,6 +19,7 @@ public class AutorModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
-    @OneToMany(mappedBy = "autor")
-    private List<LivroModel> livro;
+    @OneToMany(mappedBy = "autor", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<LivroModel> livros;
 }
