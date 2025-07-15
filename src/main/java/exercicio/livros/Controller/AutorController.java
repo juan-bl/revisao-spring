@@ -1,5 +1,6 @@
 package exercicio.livros.Controller;
 
+import exercicio.livros.DTO.AutoresDTO;
 import exercicio.livros.Model.AutorModel;
 import exercicio.livros.Service.AutorService;
 import org.springframework.web.bind.annotation.*;
@@ -27,12 +28,12 @@ public class AutorController {
     }
 
     @PostMapping
-    public AutorModel criarAutor(@RequestBody AutorModel novo) {
+    public AutoresDTO criarAutor(@RequestBody AutoresDTO novo) {
         return autorService.criarAutor(novo);
     }
 
     @PutMapping("/{id}")
-    public AutorModel atualizarAutor(@PathVariable Long id, @RequestBody AutorModel novo) {
+    public AutoresDTO atualizarAutor(@PathVariable Long id, @RequestBody AutoresDTO novo) {
         return autorService.atualizarAutor(id, novo);
     }
 
