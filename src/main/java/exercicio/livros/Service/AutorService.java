@@ -1,5 +1,7 @@
 package exercicio.livros.Service;
 
+import exercicio.livros.DTO.AutoresDTO;
+import exercicio.livros.Mapper.AutoresMapper;
 import exercicio.livros.Model.AutorModel;
 import exercicio.livros.Repository.AutorRepository;
 import org.springframework.stereotype.Service;
@@ -11,9 +13,11 @@ import java.util.Optional;
 public class AutorService {
 
     private AutorRepository autorRepository;
+    private AutoresMapper autoresMapper;
 
-    public AutorService(AutorRepository autorRepository) {
+    public AutorService(AutorRepository autorRepository, AutoresMapper autoresMapper) {
         this.autorRepository = autorRepository;
+        this.autoresMapper = autoresMapper;
     }
 
     //R
@@ -28,15 +32,19 @@ public class AutorService {
     }
 
     //C
-    public AutorModel criarAutor(AutorModel novoAutorModel) {
-        return autorRepository.save(novoAutorModel);
+    public AutoresDTO criarAutor(AutoresDTO novoAutorModel) {
+        AutorModel autor = autoresMapper.map(novoAutorModel);
+        autor = autorRepository.save(autor);
+        return autoresMapper.map(autor);
     }
 
     //U
-    public AutorModel atualizarAutor(Long id, AutorModel autorModelAtualizado) {
+    public AutoresDTO atualizarAutor(Long id, AutoresDTO autorModelAtualizado) {
         if (autorRepository.existsById(id)) {
             autorModelAtualizado.setId(id);
-            return autorRepository.save(autorModelAtualizado);
+            AutorModel autor = autoresMapper.map(autorModelAtualizado);
+            autor = autorRepository.save(autor);
+            return autoresMapper.map(autor);
         }
         return null;
     }
