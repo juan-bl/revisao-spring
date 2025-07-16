@@ -1,5 +1,6 @@
 package exercicio.livros.Controller;
 
+import exercicio.livros.DTO.LivrosDTO;
 import exercicio.livros.Model.LivroModel;
 import exercicio.livros.Service.LivroService;
 import org.springframework.stereotype.Controller;
@@ -30,12 +31,12 @@ public class LivroController {
     }
 
     @PostMapping("/criar")
-    public LivroModel criarLivro(@RequestBody LivroModel livroNovo) {
+    public LivrosDTO criarLivro(@RequestBody LivrosDTO livroNovo) {
         return livroService.criarLivro(livroNovo);
     }
 
     @PutMapping("/atualizar/{id}")
-    public LivroModel atualizarLivro(@PathVariable Long id, @RequestBody LivroModel livroAtualizado) {
+    public LivrosDTO atualizarLivro(@PathVariable Long id, @RequestBody LivrosDTO livroAtualizado) {
         return livroService.atualizarLivro(id, livroAtualizado);
     }
 
