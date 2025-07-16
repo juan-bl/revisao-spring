@@ -1,5 +1,7 @@
 package exercicio.livros.Service;
 
+import exercicio.livros.DTO.LivrosDTO;
+import exercicio.livros.Mapper.LivrosMapper;
 import exercicio.livros.Model.LivroModel;
 import exercicio.livros.Repository.LivroRepository;
 import org.springframework.stereotype.Service;
@@ -11,9 +13,11 @@ import java.util.Optional;
 public class LivroService {
 
     private LivroRepository livroRepository;
+    private LivrosMapper livrosMapper;
 
-    public LivroService(LivroRepository livroRepository) {
+    public LivroService(LivroRepository livroRepository, LivrosMapper livrosMapper) {
         this.livroRepository = livroRepository;
+        this.livrosMapper = livrosMapper;
     }
 
     public List<LivroModel> listarLivros() {
@@ -25,14 +29,18 @@ public class LivroService {
         return livro.orElse(null);
     }
 
-    public LivroModel criarLivro(LivroModel novoLivro) {
-        return livroRepository.save(novoLivro);
+    public LivrosDTO criarLivro(LivrosDTO novoLivro) {
+        LivroModel livro = livrosMapper.map(novoLivro);
+        livro = livroRepository.save(livro);
+        return livrosMapper.map(livro);
     }
 
-    public LivroModel atualizarLivro(Long id, LivroModel livroAtualizado) {
+    public LivrosDTO atualizarLivro(Long id, LivrosDTO livroAtualizado) {
         if (livroRepository.existsById(id)) {
             livroAtualizado.setId(id);
-            return livroRepository.save(livroAtualizado);
+            LivroModel livro = livrosMapper.map(livroAtualizado);
+            livro = livroRepository.save(livro);
+            return livrosMapper.map(livro);
         }
         return null;
     }
